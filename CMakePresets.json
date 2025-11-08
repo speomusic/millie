@@ -1,0 +1,57 @@
+{
+  "version": 4,
+  "include": ["./ConanPresets.json"],
+  "configurePresets": [
+    {
+      "name": "compile-commands",
+      "inherits": "conan-default",
+      "binaryDir": "build-compile-commands",
+      "toolchainFile": "../build/generators/conan_toolchain.cmake",
+      "generator": "Unix Makefiles",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_EXPORT_COMPILE_COMMANDS": "ON",
+        "MERC_COMPILE_COMMANDS_RUN": "ON"
+      }
+    }
+  ],
+  "buildPresets": [
+    {
+      "name": "build-verbose",
+      "inherits": "conan-debug",
+      "targets": "mercury",
+      "nativeToolOptions": ["-arch", "arm64"]
+    },
+    {
+      "name": "build",
+      "inherits": "build-verbose",
+      "nativeToolOptions": ["-arch", "arm64", "-quiet"]
+    },
+    {
+      "name": "build-test",
+      "inherits": "build",
+      "targets": "tests",
+      "nativeToolOptions": ["-arch", "arm64", "-quiet"]
+    }
+ 
+  ],
+  "testPresets": [
+    {
+      "name": "mercury",
+      "inherits": "conan-debug",
+      "configuration": "debug",
+      "output" : {
+        "verbosity": "verbose"
+      },
+      "filter": {
+        "include": {
+          "name": "mercury"
+        }
+      }
+    },
+    {
+      "name": "tests",
+      "inherits": "conan-debug"
+    }
+  ]
+}
