@@ -1,4 +1,4 @@
-foo
+# Heading
 
 ```mermaid
 graph TD;
