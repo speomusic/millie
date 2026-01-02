@@ -4,7 +4,3 @@
 +Serum
 60
 ```
-
-foobar
-
-baz
